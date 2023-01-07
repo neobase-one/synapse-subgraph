@@ -1,0 +1,42 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: SynapseBridge
+    network: mainnet
+    source:
+      address: "0xDde5BEC4815E1CeCf336fb973Ca578e8D83606E0"
+      abi: SynapseBridge
+      startBlock: 1060203
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/webassembly
+      entities:
+        - BridgeTransaction
+      abis:
+        - name: SynapseBridge
+          file: abis/SynapseBridge.json
+      eventHandlers:
+        # IN
+        - event: TokenMintAndSwap(indexed address,address,uint256,uint256,uint8,uint8,uint256,uint256,bool,indexed bytes32)
+          handler: handleTokenMintAndSwap
+        - event: TokenMint(indexed address,address,uint256,uint256,indexed bytes32)
+          handler: handleTokenMint
+        - event: TokenWithdrawAndRemove(indexed address,address,uint256,uint256,uint8,uint256,uint256,bool,indexed bytes32)
+          handler: handleTokenWithdrawAndRemove
+        - event: TokenWithdraw(indexed address,address,uint256,uint256,indexed bytes32)
+          handler: handleTokenWithdraw
+        # OUT
+        - event: TokenRedeemAndSwap(indexed address,uint256,address,uint256,uint8,uint8,uint256,uint256)
+          handler: handleTokenRedeemAndSwap
+        - event: TokenRedeemAndRemove(indexed address,uint256,address,uint256,uint8,uint256,uint256)
+          handler: handleTokenRedeemAndRemove
+        - event: TokenRedeem(indexed address,uint256,address,uint256)
+          handler: handleTokenRedeem
+        - event: TokenDepositAndSwap(indexed address,uint256,address,uint256,uint8,uint8,uint256,uint256)
+          handler: handleTokenDepositAndSwap
+        - event: TokenDeposit(indexed address,uint256,address,uint256)
+          handler: handleTokenDeposit
+      file: ./src/mappings/handlers.ts

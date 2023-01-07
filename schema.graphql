@@ -1,0 +1,25 @@
+type BridgeTransaction @entity {
+  id: ID!
+  toTxnHash: String!
+  toAddress: String!
+  fromAddress: String!
+  sentValue: String!
+  sentValueFormatted: BigDecimal!
+  sentValueUSD: BigDecimal!
+  receivedValue: String!
+  receivedValueFormatted: BigDecimal!
+  receivedValueUSD: BigDecimal!
+  fromChainId: BigDecimal!
+  toChainId: BigDecimal!
+  fromChainBlock: BigDecimal!
+  toChainBlock: BigDecimal!
+  sentTime: BigDecimal!
+  receivedTime: BigDecimal!
+  sentTokenSymbol: String!
+  sentTokenAddress: String!
+  receivedTokenSymbol: String!
+  receivedTokenAddress: String!
+  kappa: String!
+  pending: Boolean!
+  swapSuccess: Boolean!
+}
