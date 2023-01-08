@@ -1,7 +1,7 @@
 type BridgeTransaction @entity {
   id: ID!
   kappa: String
-  toTxnHash: String
+  toTxnHash: Bytes
 
   toAddress: Bytes
   fromAddress: Bytes

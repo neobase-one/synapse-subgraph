@@ -1,4 +1,4 @@
-import { Address, BigInt, ByteArray, crypto, ethereum } from "@graphprotocol/graph-ts";
+import { Address, BigInt, ByteArray, Bytes, crypto, ethereum } from "@graphprotocol/graph-ts";
 import { BridgeTransaction } from "../../generated/schema";
 
 export function handleOut(block: ethereum.Block, transaction: ethereum.Transaction,
