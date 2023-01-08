@@ -1,4 +1,10 @@
 {
+  "name": "synapse-subgraph",
+  "license": "MIT",
+  "scripts": {
+    "codegen": "graph codegen",
+    "build": "graph codegen && graph build"
+  },
   "dependencies": {
     "typescript": "^4.9.4",
     "@graphprotocol/graph-cli": "0.27.0",
