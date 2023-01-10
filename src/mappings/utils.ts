@@ -1,5 +1,6 @@
 import { Address, BigInt, ByteArray, Bytes, crypto, ethereum } from "@graphprotocol/graph-ts";
 import { BridgeTransaction } from "../../generated/schema";
+import { TokenDefinition } from "./tokens";
 
 export function handleOut(block: ethereum.Block, transaction: ethereum.Transaction,
     chainId: BigInt, token: Address, to: Address, amount: BigInt): void 
@@ -13,7 +14,7 @@ export function handleOut(block: ethereum.Block, transaction: ethereum.Transacti
     let toAddress = to
     let fromAddress = transaction.from
     let sentTokenAddress = token
-    let sentTokenSymbol = "" // todo
+    let sentTokenSymbol = TokenDefinition.fromAddress(sentTokenAddress).symbol
     let sentValue = amount
     let pending = true
 

@@ -1,6 +1,7 @@
 import { BigInt, ByteArray, crypto } from '@graphprotocol/graph-ts'
 import { BridgeTransaction } from '../../generated/schema'
 import { TokenDeposit, TokenDepositAndSwap, TokenMint, TokenMintAndSwap, TokenRedeem, TokenRedeemAndRemove, TokenRedeemAndSwap, TokenWithdraw, TokenWithdrawAndRemove } from '../../generated/SynapseBridge/SynapseBridge'
+import { TokenDefinition } from './tokens'
 import { handleOut } from './utils'
 
 // IN
@@ -15,7 +16,7 @@ export function handleTokenMintAndSwap(event: TokenMintAndSwap): void {
     let swapSuccess = event.params.swapSuccess
     let tokenIndexTo = event.params.tokenIndexTo
     let receivedTokenAddress = event.params.token // todo: indexer has other logic
-    let receivedTokenSymbol = ""
+    let receivedTokenSymbol = TokenDefinition.fromAddress(receivedTokenAddress).symbol
     let receivedTokenValue = event.params.amount
     let toChainId = BigInt.fromI32(7700) // todo
     let pending = false
@@ -69,7 +70,7 @@ export function handleTokenMint(event: TokenMint): void {
     let fee = event.params.fee
     let swapSuccess = null
     let receivedTokenAddress = event.params.token // todo: indexer has other logic
-    let receivedTokenSymbol = ""
+    let receivedTokenSymbol = TokenDefinition.fromAddress(receivedTokenAddress).symbol
     let receivedTokenValue = event.params.amount
     let toChainId = BigInt.fromI32(7700) // todo
     let pending = false
@@ -123,7 +124,7 @@ export function handleTokenWithdrawAndRemove(event: TokenWithdrawAndRemove): voi
     let swapSuccess = event.params.swapSuccess
     let tokenIndexTo = event.params.swapTokenIndex
     let receivedTokenAddress = event.params.token
-    let receivedTokenSymbol = ""
+    let receivedTokenSymbol = TokenDefinition.fromAddress(receivedTokenAddress).symbol
     let receivedTokenValue = event.params.amount
     let toChainId = BigInt.fromI32(7700) // todo
     let pending = false
@@ -177,7 +178,7 @@ export function handleTokenWithdraw(event: TokenWithdraw): void {
     let fee = event.params.fee
     let swapSuccess = null
     let receivedTokenAddress = event.params.token // todo: indexer has other logic
-    let receivedTokenSymbol = ""
+    let receivedTokenSymbol = TokenDefinition.fromAddress(receivedTokenAddress).symbol
     let receivedTokenValue = event.params.amount
     receivedTokenValue = receivedTokenValue.minus(fee) // todo: verify double sub
     let toChainId = BigInt.fromI32(7700) // todo
