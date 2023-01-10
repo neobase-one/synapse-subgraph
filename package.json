@@ -3,7 +3,9 @@
   "license": "MIT",
   "scripts": {
     "codegen": "graph codegen",
-    "build": "graph codegen && graph build"
+    "build": "graph codegen && graph build",
+    "deploy-local": "graph create --node http://localhost:8020/ synapse/bridge-subgraph && graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 synapse/bridge-subgraph",
+    "remove-local": "graph remove --node http://localhost:8020/ synapse/bridge-subgraph"
   },
   "dependencies": {
     "typescript": "^4.9.4",

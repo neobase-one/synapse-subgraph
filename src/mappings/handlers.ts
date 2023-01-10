@@ -8,7 +8,7 @@ export function handleTokenMintAndSwap(event: TokenMintAndSwap): void {
     const blockNumber = event.block.number
     const timestamp = event.block.timestamp
     const txnHash = event.transaction.hash
-    const kappa = crypto.keccak256(ByteArray.fromHexString(txnHash.toHexString())).toString()
+    const kappa = crypto.keccak256(ByteArray.fromHexString(txnHash.toHexString())).toHexString()
     
     let toAddress = event.params.to
     let fee = event.params.fee
@@ -37,9 +37,9 @@ export function handleTokenMintAndSwap(event: TokenMintAndSwap): void {
     // update object
     // txn.toTxnHash = null 
     txn.kappa = kappa
-    txn.toTxnHash = txnHash
+    txn.toTxnHash = txnHash.toHexString()
 
-    txn.toAddress = toAddress
+    txn.toAddress = toAddress.toHexString()
     
     txn.receivedValue = receivedTokenValue
 
@@ -49,7 +49,7 @@ export function handleTokenMintAndSwap(event: TokenMintAndSwap): void {
 
     txn.receivedTime = timestamp
 
-    txn.receivedTokenAddress = receivedTokenAddress
+    txn.receivedTokenAddress = receivedTokenAddress.toHexString()
     txn.receivedTokenSymbol = receivedTokenSymbol
 
     txn.pending = pending
@@ -63,7 +63,7 @@ export function handleTokenMint(event: TokenMint): void {
     const blockNumber = event.block.number
     const timestamp = event.block.timestamp
     const txnHash = event.transaction.hash
-    const kappa = crypto.keccak256(ByteArray.fromHexString(txnHash.toHexString())).toString()
+    const kappa = crypto.keccak256(ByteArray.fromHexString(txnHash.toHexString())).toHexString()
 
     let toAddress = event.params.to
     let fee = event.params.fee
@@ -91,9 +91,9 @@ export function handleTokenMint(event: TokenMint): void {
     // update object
     // txn.toTxnHash = null 
     txn.kappa = kappa
-    txn.toTxnHash = txnHash
+    txn.toTxnHash = txnHash.toHexString()
 
-    txn.toAddress = toAddress
+    txn.toAddress = toAddress.toHexString()
     
     txn.receivedValue = receivedTokenValue
 
@@ -103,7 +103,7 @@ export function handleTokenMint(event: TokenMint): void {
 
     txn.receivedTime = timestamp
 
-    txn.receivedTokenAddress = receivedTokenAddress
+    txn.receivedTokenAddress = receivedTokenAddress.toHexString()
     txn.receivedTokenSymbol = receivedTokenSymbol
 
     txn.pending = pending
@@ -116,7 +116,7 @@ export function handleTokenWithdrawAndRemove(event: TokenWithdrawAndRemove): voi
     const blockNumber = event.block.number
     const timestamp = event.block.timestamp
     const txnHash = event.transaction.hash
-    const kappa = crypto.keccak256(ByteArray.fromHexString(txnHash.toHexString())).toString()
+    const kappa = crypto.keccak256(ByteArray.fromHexString(txnHash.toHexString())).toHexString()
 
     let toAddress = event.params.to
     let fee = event.params.fee
@@ -145,9 +145,9 @@ export function handleTokenWithdrawAndRemove(event: TokenWithdrawAndRemove): voi
     // update object
     // txn.toTxnHash = null 
     txn.kappa = kappa
-    txn.toTxnHash = txnHash
+    txn.toTxnHash = txnHash.toHexString()
 
-    txn.toAddress = toAddress
+    txn.toAddress = toAddress.toHexString()
     
     txn.receivedValue = receivedTokenValue
 
@@ -157,7 +157,7 @@ export function handleTokenWithdrawAndRemove(event: TokenWithdrawAndRemove): voi
 
     txn.receivedTime = timestamp
 
-    txn.receivedTokenAddress = receivedTokenAddress
+    txn.receivedTokenAddress = receivedTokenAddress.toHexString()
     txn.receivedTokenSymbol = receivedTokenSymbol
 
     txn.pending = pending
@@ -171,7 +171,7 @@ export function handleTokenWithdraw(event: TokenWithdraw): void {
     const blockNumber = event.block.number
     const timestamp = event.block.timestamp
     const txnHash = event.transaction.hash
-    const kappa = crypto.keccak256(ByteArray.fromHexString(txnHash.toHexString())).toString()
+    const kappa = crypto.keccak256(ByteArray.fromHexString(txnHash.toHexString())).toHexString()
 
     let toAddress = event.params.to
     let fee = event.params.fee
@@ -200,9 +200,9 @@ export function handleTokenWithdraw(event: TokenWithdraw): void {
     // update object
     // txn.toTxnHash = null 
     txn.kappa = kappa
-    txn.toTxnHash = txnHash
+    txn.toTxnHash = txnHash.toHexString()
 
-    txn.toAddress = toAddress
+    txn.toAddress = toAddress.toHexString()
     
     txn.receivedValue = receivedTokenValue
 
@@ -212,7 +212,7 @@ export function handleTokenWithdraw(event: TokenWithdraw): void {
 
     txn.receivedTime = timestamp
 
-    txn.receivedTokenAddress = receivedTokenAddress
+    txn.receivedTokenAddress = receivedTokenAddress.toHexString()
     txn.receivedTokenSymbol = receivedTokenSymbol
 
     txn.pending = pending

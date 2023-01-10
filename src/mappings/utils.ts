@@ -7,7 +7,7 @@ export function handleOut(block: ethereum.Block, transaction: ethereum.Transacti
     const blockNumber = block.number
     const timestamp = block.timestamp
     const txnHash = transaction.hash
-    const kappa = crypto.keccak256(ByteArray.fromHexString(txnHash.toHexString())).toString()
+    const kappa = crypto.keccak256(ByteArray.fromHexString(txnHash.toHexString())).toHexString()
     let toChainId = chainId
     let fromChainId = BigInt.fromI32(7700)
     let toAddress = to
@@ -29,14 +29,14 @@ export function handleOut(block: ethereum.Block, transaction: ethereum.Transacti
 
     // update object
     // txn.toTxnHash = null 
-    txn.toAddress = toAddress
-    txn.fromAddress = fromAddress
+    txn.toAddress = toAddress.toHexString()
+    txn.fromAddress = fromAddress.toHexString()
     txn.sentValue = sentValue
     txn.fromChainId = fromChainId
     txn.toChainId = toChainId
     txn.fromChainBlock = blockNumber
     txn.sentTime = timestamp
-    txn.sentTokenAddress = sentTokenAddress
+    txn.sentTokenAddress = sentTokenAddress.toHexString()
     txn.sentTokenSymbol = sentTokenSymbol
     txn.kappa = kappa
     txn.pending = pending

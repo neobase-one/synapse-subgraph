@@ -1,10 +1,10 @@
 type BridgeTransaction @entity {
   id: ID!
   kappa: String
-  toTxnHash: Bytes
+  toTxnHash: String
 
-  toAddress: Bytes
-  fromAddress: Bytes
+  toAddress: String
+  fromAddress: String
   
   sentValue: BigInt
   sentValueFormatted: BigDecimal
@@ -23,10 +23,10 @@ type BridgeTransaction @entity {
   sentTime: BigInt
   receivedTime: BigInt
   
-  sentTokenAddress: Bytes
+  sentTokenAddress: String
   sentTokenSymbol: String
   
-  receivedTokenAddress: Bytes
+  receivedTokenAddress: String
   receivedTokenSymbol: String
   
   pending: Boolean
