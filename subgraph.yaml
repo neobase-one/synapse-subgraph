@@ -8,7 +8,7 @@ dataSources:
     source:
       address: "0xDde5BEC4815E1CeCf336fb973Ca578e8D83606E0"
       abi: SynapseBridge
-      startBlock: 1060203
+      startBlock: 1700000
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7

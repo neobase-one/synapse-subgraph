@@ -9,10 +9,21 @@ import {
   TokenWithdraw,
   TokenWithdrawAndRemove,
 } from "../../generated/SynapseBridge/SynapseBridge"
-import { log } from "@graphprotocol/graph-ts"
+import { ethereum, log } from "@graphprotocol/graph-ts"
+
+function test(receipt: ethereum.TransactionReceipt): void {
+  log.info("n logs: {}", [receipt.logs.length.toString()]); 
+
+  for(var ix = 0; ix < receipt.logs.length; ix++) {
+    log.info("i logs: {}", [ix.toString()]); 
+    log.info("LOG DATA: {}", [receipt.logs[ix].data.toHexString()]);
+  }
+
+  receipt.logs.forEach(lg => log.info("LOG DATA: {}", [lg.data.toHexString()]));
+}
 
 export function handleTokenDeposit(event: TokenDeposit): void {
-  log.info("Tx from receipt: {}", [event.receipt!.transactionHash.toHexString()]) 
+  test(event.receipt!)
   // Note: If a handler doesn't require existing field values, it is faster
   // _not_ to load the entity from the store. Instead, create it fresh with
   // `new Entity(...)`, set the fields that should be updated and save the
@@ -45,35 +56,35 @@ export function handleTokenDeposit(event: TokenDeposit): void {
 }
 
 export function handleTokenDepositAndSwap(event: TokenDepositAndSwap): void {
-  log.info("Tx from receipt: {}", [event.receipt!.transactionHash.toHexString()]) 
+  test(event.receipt!)
 }
 
 export function handleTokenMint(event: TokenMint): void {
-  log.info("Tx from receipt: {}", [event.receipt!.transactionHash.toHexString()]) 
+  test(event.receipt!)
 }
 
 export function handleTokenMintAndSwap(event: TokenMintAndSwap): void {
-  log.info("Tx from receipt: {}", [event.receipt!.transactionHash.toHexString()]) 
+  test(event.receipt!)
 }
 
 export function handleTokenRedeem(event: TokenRedeem): void {
-  log.info("Tx from receipt: {}", [event.receipt!.transactionHash.toHexString()]) 
+  test(event.receipt!)
 }
 
 export function handleTokenRedeemAndRemove(event: TokenRedeemAndRemove): void {
-  log.info("Tx from receipt: {}", [event.receipt!.transactionHash.toHexString()]) 
+  test(event.receipt!)
 }
 
 export function handleTokenRedeemAndSwap(event: TokenRedeemAndSwap): void {
-  log.info("Tx from receipt: {}", [event.receipt!.transactionHash.toHexString()]) 
+  test(event.receipt!)
 }
 
 export function handleTokenWithdraw(event: TokenWithdraw): void {
-  log.info("Tx from receipt: {}", [event.receipt!.transactionHash.toHexString()]) 
+  test(event.receipt!)
 }
 
 export function handleTokenWithdrawAndRemove(
   event: TokenWithdrawAndRemove
 ): void {
-  log.info("Tx from receipt: {}", [event.receipt!.transactionHash.toHexString()]) 
+  test(event.receipt!)
 }
