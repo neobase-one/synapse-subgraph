@@ -1,8 +1,8 @@
-import { BigInt, ByteArray, crypto } from '@graphprotocol/graph-ts'
+import { Address, BigInt, ByteArray, Bytes, crypto, ethereum, log } from '@graphprotocol/graph-ts'
 import { BridgeTransaction } from '../../generated/schema'
 import { TokenDeposit, TokenDepositAndSwap, TokenMint, TokenMintAndSwap, TokenRedeem, TokenRedeemAndRemove, TokenRedeemAndSwap, TokenWithdraw, TokenWithdrawAndRemove } from '../../generated/SynapseBridge/SynapseBridge'
-import { handleOut } from './utils'
-
+import { getPoolAddress, getReceivedToken, getReceivedValue, handleOut } from './utils'
+  
 // IN
 export function handleTokenMintAndSwap(event: TokenMintAndSwap): void {
     const blockNumber = event.block.number
@@ -14,9 +14,10 @@ export function handleTokenMintAndSwap(event: TokenMintAndSwap): void {
     let fee = event.params.fee
     let swapSuccess = event.params.swapSuccess
     let tokenIndexTo = event.params.tokenIndexTo
-    let receivedTokenAddress = event.params.token // todo: indexer has other logic
+    let poolAddress = getPoolAddress("handleTokenMintAndSwap", event.transaction.input);
+    let receivedTokenAddress = getReceivedToken(kappa, poolAddress, swapSuccess, tokenIndexTo as i32, event.params.token)
     let receivedTokenSymbol = ""
-    let receivedTokenValue = event.params.amount
+    let receivedTokenValue = getReceivedValue(event.params.amount, event.params.token, event.receipt!)
     let toChainId = BigInt.fromI32(7700) // todo
     let pending = false
 
@@ -68,9 +69,9 @@ export function handleTokenMint(event: TokenMint): void {
     let toAddress = event.params.to
     let fee = event.params.fee
     let swapSuccess = null
-    let receivedTokenAddress = event.params.token // todo: indexer has other logic
+    let receivedTokenAddress = event.params.token
     let receivedTokenSymbol = ""
-    let receivedTokenValue = event.params.amount
+    let receivedTokenValue = getReceivedValue(event.params.amount, event.params.token, event.receipt!)
     let toChainId = BigInt.fromI32(7700) // todo
     let pending = false
 
@@ -122,9 +123,10 @@ export function handleTokenWithdrawAndRemove(event: TokenWithdrawAndRemove): voi
     let fee = event.params.fee
     let swapSuccess = event.params.swapSuccess
     let tokenIndexTo = event.params.swapTokenIndex
-    let receivedTokenAddress = event.params.token
+    let poolAddress = getPoolAddress("handleTokenWithdrawAndRemove", event.transaction.input);
+    let receivedTokenAddress = getReceivedToken(kappa, poolAddress, swapSuccess, tokenIndexTo as i32, event.params.token)
     let receivedTokenSymbol = ""
-    let receivedTokenValue = event.params.amount
+    let receivedTokenValue = getReceivedValue(event.params.amount, event.params.token, event.receipt!)
     let toChainId = BigInt.fromI32(7700) // todo
     let pending = false
 
@@ -176,9 +178,9 @@ export function handleTokenWithdraw(event: TokenWithdraw): void {
     let toAddress = event.params.to
     let fee = event.params.fee
     let swapSuccess = null
-    let receivedTokenAddress = event.params.token // todo: indexer has other logic
+    let receivedTokenAddress = event.params.token
     let receivedTokenSymbol = ""
-    let receivedTokenValue = event.params.amount
+    let receivedTokenValue = getReceivedValue(event.params.amount, event.params.token, event.receipt!)
     receivedTokenValue = receivedTokenValue.minus(fee) // todo: verify double sub
     let toChainId = BigInt.fromI32(7700) // todo
     let pending = false
