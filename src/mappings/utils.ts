@@ -18,7 +18,7 @@ export function handleOut(block: ethereum.Block, transaction: ethereum.Transacti
     let toAddress = to
     let fromAddress = transaction.from
     let sentTokenAddress = token
-    let sentTokenSymbol = TokenDefinition.fromAddress(sentTokenAddress).symbol
+    let sentTokenSymbol = ""
     let sentValue = amount
     let pending = true
 
