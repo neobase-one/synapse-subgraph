@@ -3,6 +3,9 @@ import { BridgeTransaction } from "../../generated/schema";
 import { BasePool } from '../../generated/SynapseBridge/BasePool'
 import { MintAndSwapCall__Inputs } from "../../generated/SynapseBridge/SynapseBridge";
 
+export const CHAIN_ID = BigInt.fromI32(7700)
+export const ADDRESS_ZERO = '0x0000000000000000000000000000000000000000'
+
 export function handleOut(block: ethereum.Block, transaction: ethereum.Transaction,
     chainId: BigInt, token: Address, to: Address, amount: BigInt): void 
 {
@@ -75,7 +78,6 @@ export function getReceivedValue(amount: BigInt, token: Address, receipt: ethere
 }
 
 // 
-export const ADDRESS_ZERO = '0x0000000000000000000000000000000000000000'
 
 export function getSwapPoolCoinAddresses(poolAddress: Address, index: i32): Address {
     let contract = BasePool.bind(poolAddress)
