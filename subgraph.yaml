@@ -6,7 +6,7 @@ dataSources:
     name: SynapseBridge
     network: mainnet
     source:
-      address: "0xDde5BEC4815E1CeCf336fb973Ca578e8D83606E0"
+      address: '0xDde5BEC4815E1CeCf336fb973Ca578e8D83606E0'
       abi: SynapseBridge
       startBlock: 1700203
     mapping:
