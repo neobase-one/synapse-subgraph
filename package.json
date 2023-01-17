@@ -1,5 +1,5 @@
 {
-  "name": "synapse-subgraph",
+  "name": "neobase-one/synapse-subgraph",
   "license": "MIT",
   "scripts": {
     "lint": "prettier --write .",
