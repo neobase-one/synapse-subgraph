@@ -1,0 +1,24 @@
+{
+  "name": "synapse-subgraph",
+  "license": "MIT",
+  "scripts": {
+    "lint": "prettier --write .",
+    "codegen": "graph codegen",
+    "build": "graph codegen && graph build",
+    "deploy-local": "graph create --node http://localhost:8020/ synapse/bridge-subgraph && graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 synapse/bridge-subgraph",
+    "remove-local": "graph remove --node http://localhost:8020/ synapse/bridge-subgraph"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "0.37.2",
+    "@graphprotocol/graph-ts": "0.29.1",
+    "typescript": "^4.9.4"
+  },
+  "devDependencies": {
+    "husky": "^8.0.3",
+    "lint-staged": "^13.1.0",
+    "prettier": "^2.8.3"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
+  }
+}
