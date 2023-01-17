@@ -85,12 +85,7 @@ export function getReceivedValue(
     let lg = receipt.logs[ix]
     if (lg.address == token) {
       let decoded = parseLogsErc20(lg.data)
-      if (decoded == null) {
-        log.info('LOG NULL DECODE :: {} {}', [
-          lg.address.toHexString(),
-          lg.data.toHexString(),
-        ])
-      } else {
+      if (decoded !== null) {
         return decoded!.toTuple()[2].toBigInt()
       }
     }
@@ -109,10 +104,6 @@ export function getSwapPoolCoinAddresses(
   let addressValue = Address.fromString(ADDRESS_ZERO)
   let addressResult = contract.try_getToken(index)
   if (addressResult.reverted) {
-    log.info('try_getToken::REVERTED Could not find received token {} {}', [
-      poolAddress.toHexString(),
-      index.toString(),
-    ])
     return Address.fromString(ADDRESS_ZERO)
   } else {
     addressValue = addressResult.value
@@ -133,7 +124,6 @@ export function getReceivedToken(
     } else if (token !== null) {
       return token
     } else {
-      log.info('Could not find received token for txn with kappa {}', [kappa])
       return Address.fromString(ADDRESS_ZERO)
     }
   } else {
@@ -159,12 +149,6 @@ export function getPoolAddress(type: string, input: Bytes): Address {
   let inputBytes = Bytes.fromHexString('0x' + input.toHexString().substring(10))
   let decoded = ethereum.decode(typestring, inputBytes)
   if (decoded == null) {
-    log.info('POOL DECODED NULL :: {} {} {} {}', [
-      type,
-      typestring,
-      input.toHexString(),
-      input.toHexString().substring(10, -1),
-    ])
     return Address.fromString('0x07379565cd8b0cae7c60dc78e7f601b34af2a21c')
   } else {
     return decoded!.toTuple()[4].toAddress()
