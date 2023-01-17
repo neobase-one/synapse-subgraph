@@ -1,7 +1,7 @@
 import { Address, BigInt, ByteArray, Bytes, crypto, ethereum, log } from "@graphprotocol/graph-ts";
 import { BridgeTransaction } from "../../generated/schema";
 import { BasePool } from '../../generated/SynapseBridge/BasePool'
-import { MintAndSwapCall__Inputs } from "../../generated/SynapseBridge/SynapseBridge";
+import { TokenDefinition } from "./tokens";
 
 export const CHAIN_ID = BigInt.fromI32(7700)
 export const ADDRESS_ZERO = '0x0000000000000000000000000000000000000000'
@@ -18,7 +18,7 @@ export function handleOut(block: ethereum.Block, transaction: ethereum.Transacti
     let toAddress = to
     let fromAddress = transaction.from
     let sentTokenAddress = token
-    let sentTokenSymbol = ""
+    let sentTokenSymbol = TokenDefinition.fromAddress(sentTokenAddress).symbol
     let sentValue = amount
     let pending = true
 

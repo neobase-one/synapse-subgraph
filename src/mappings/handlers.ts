@@ -1,6 +1,7 @@
 import { Address, BigInt, ByteArray, Bytes, crypto, ethereum, log } from '@graphprotocol/graph-ts'
 import { BridgeTransaction } from '../../generated/schema'
 import { TokenDeposit, TokenDepositAndSwap, TokenMint, TokenMintAndSwap, TokenRedeem, TokenRedeemAndRemove, TokenRedeemAndSwap, TokenWithdraw, TokenWithdrawAndRemove } from '../../generated/SynapseBridge/SynapseBridge'
+import { TokenDefinition } from './tokens'
 import { CHAIN_ID, getPoolAddress, getReceivedToken, getReceivedValue, handleOut } from './utils'
   
 // IN
@@ -16,7 +17,7 @@ export function handleTokenMintAndSwap(event: TokenMintAndSwap): void {
     let tokenIndexTo = event.params.tokenIndexTo
     let poolAddress = getPoolAddress("handleTokenMintAndSwap", event.transaction.input);
     let receivedTokenAddress = getReceivedToken(kappa, poolAddress, swapSuccess, tokenIndexTo as i32, event.params.token)
-    let receivedTokenSymbol = ""
+    let receivedTokenSymbol = TokenDefinition.fromAddress(receivedTokenAddress).symbol
     let receivedTokenValue = getReceivedValue(event.params.amount, event.params.token, event.receipt!)
     let toChainId = CHAIN_ID
     let pending = false
@@ -69,7 +70,7 @@ export function handleTokenMint(event: TokenMint): void {
     let toAddress = event.params.to
     let fee = event.params.fee
     let receivedTokenAddress = event.params.token
-    let receivedTokenSymbol = ""
+    let receivedTokenSymbol = TokenDefinition.fromAddress(receivedTokenAddress).symbol
     let receivedTokenValue = getReceivedValue(event.params.amount, event.params.token, event.receipt!)
     let toChainId = CHAIN_ID
     let pending = false
@@ -122,7 +123,7 @@ export function handleTokenWithdrawAndRemove(event: TokenWithdrawAndRemove): voi
     let tokenIndexTo = event.params.swapTokenIndex
     let poolAddress = getPoolAddress("handleTokenWithdrawAndRemove", event.transaction.input);
     let receivedTokenAddress = getReceivedToken(kappa, poolAddress, swapSuccess, tokenIndexTo as i32, event.params.token)
-    let receivedTokenSymbol = ""
+    let receivedTokenSymbol = TokenDefinition.fromAddress(receivedTokenAddress).symbol
     let receivedTokenValue = getReceivedValue(event.params.amount, event.params.token, event.receipt!)
     let toChainId = CHAIN_ID
     let pending = false
@@ -175,7 +176,7 @@ export function handleTokenWithdraw(event: TokenWithdraw): void {
     let toAddress = event.params.to
     let fee = event.params.fee
     let receivedTokenAddress = event.params.token
-    let receivedTokenSymbol = ""
+    let receivedTokenSymbol = TokenDefinition.fromAddress(receivedTokenAddress).symbol
     let receivedTokenValue = getReceivedValue(event.params.amount, event.params.token, event.receipt!)
     let toChainId = CHAIN_ID
     let pending = false
